@@ -1,15 +1,19 @@
-import { Lobby } from 'boardgame.io/react';
-
-import { TheStitchesGame } from './sharedComponents/Game';
-import { TheStitchesGameBoard } from './sharedComponents/GameBoard';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import { CreateNewGame } from "./pages/CreateNewGame";
+import { Game } from "./pages/Game";
+import { Home } from "./pages/Home";
 
 const App = () => {
-  return <Lobby
-  gameServer={`http://${window.location.hostname}:8080`}
-  lobbyServer={`http://${window.location.hostname}:8080`}
-  gameComponents={[
-    { game: TheStitchesGame, board: TheStitchesGameBoard }
-  ]}
-/>;
+  return <Router>
+    <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/new-game" element={<CreateNewGame />} />
+    <Route path="/game/:matchId" element={<Game />} />
+  </Routes>
+  </Router>;
 }
 export default App;

@@ -1,5 +1,5 @@
 import { Server, Origins } from 'boardgame.io/server';
-import { TheStitchesGame } from '../sharedComponents/Game';
+import { TheStitchesGame } from '../sharedComponents/TheStitchesGame';
 
 export const server = Server({
   // Provide the definitions for your game(s).
