@@ -1,5 +1,5 @@
-import { Ctx, Game } from "boardgame.io";
-import { GameState } from "../../interfaces";
+import type { Game } from "boardgame.io";
+import type { GameState } from "../../interfaces";
 
 export const TheStitchesGame: Game<GameState> = {
   name: 'the-stitches',

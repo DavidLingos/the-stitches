@@ -1,4 +1,4 @@
-import { PlayerID } from "boardgame.io";
+import type { PlayerID } from "boardgame.io";
 
 export interface GameState {
   currentRound: number;
