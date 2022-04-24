@@ -1,5 +1,5 @@
 import { Server, Origins } from 'boardgame.io/server';
-import { TheStitchesGame } from '../sharedComponents/TheStitchesGame';
+import { TheStitchesGame } from '../game/TheStitchesGame';
 
 export const server = Server({
   // Provide the definitions for your game(s).
@@ -7,7 +7,7 @@ export const server = Server({
 
   origins: [
     // Allow localhost to connect, except when NODE_ENV is 'production'.
-    Origins.LOCALHOST
+    Origins.LOCALHOST,
   ],
 });
 
@@ -16,5 +16,5 @@ server.run({
   lobbyConfig: {
     apiPort: 8080,
     apiCallback: () => console.log('Running Lobby API on port 8080...'),
-  }
+  },
 });

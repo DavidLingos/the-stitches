@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
-import { lobbyClient } from "../../../api/lobbyClient";
-import { TheStitchesGame } from "../../../sharedComponents/TheStitchesGame";
+import { useCallback, useState } from 'react';
+import { lobbyClient } from '../../../api/lobbyClient';
+import { TheStitchesGame } from '../../../game/TheStitchesGame';
 
 interface JoinGameFormProps {
   matchId: string;
@@ -14,14 +14,18 @@ export const JoinGameForm: React.FC<JoinGameFormProps> = ({ matchId, setPlayerId
       alert('Zadej své herní jméno');
       return;
     }
-    lobbyClient.joinMatch(TheStitchesGame.name ?? '', matchId, {
-      playerName: playerName
-    }).then(response => setPlayerId(response.playerID))
+    lobbyClient
+      .joinMatch(TheStitchesGame.name ?? '', matchId, {
+        playerName: playerName,
+      })
+      .then((response) => setPlayerId(response.playerID));
   }, [playerName, matchId, setPlayerId]);
 
-  return <>
-    <label>Zadej své herní jméno</label>
-    <input onChange={e => setPlayerName(e.target.value)} />
-    <button onClick={joinGame}>Vstoupit do hry</button>
-  </>
-}
+  return (
+    <>
+      <label>Zadej své herní jméno</label>
+      <input onChange={(e) => setPlayerName(e.target.value)} />
+      <button onClick={joinGame}>Vstoupit do hry</button>
+    </>
+  );
+};
