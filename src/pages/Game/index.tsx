@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { lobbyClient } from '../../api/lobbyClient';
 import { TheStitchesGame } from '../../game/TheStitchesGame';
@@ -8,13 +8,19 @@ import { JoinGameForm } from './JoinGameForm';
 export const Game = () => {
   const params = useParams();
   const matchId = params.matchId ?? '';
+  const sessionPlayer = useMemo(() => {
+    const sessionPlayerString = sessionStorage.getItem(matchId);
+    return sessionPlayerString ? JSON.parse(sessionPlayerString) : undefined;
+  }, [matchId]);
   const [canConnectToGame, setCanConnectToGame] = useState<boolean>();
-  const [playerId, setPlayerId] = useState<string>(localStorage.getItem(`${params.matchId}:playerId`) ?? '');
+  const [playerId, setPlayerId] = useState<string>(sessionPlayer?.playerId);
+  const [playerCredentials, setPlayerCredentials] = useState<string>(sessionPlayer?.playerCredentials);
 
-  const setPlayerIdCallback = useCallback(
-    (playerId: string) => {
-      localStorage.setItem(`${matchId}:playerId`, playerId);
+  const setPlayerCallback = useCallback(
+    (playerId: string, playerCredentials: string) => {
+      sessionStorage.setItem(`${matchId}`, JSON.stringify({ playerId, playerCredentials }));
       setPlayerId(playerId);
+      setPlayerCredentials(playerCredentials);
     },
     [setPlayerId, matchId],
   );
@@ -30,14 +36,13 @@ export const Game = () => {
   if (!canConnectToGame && !playerId) {
     return <>Game is full</>;
   }
-
   return (
     <>
       <div>Toto je hra s id {matchId}</div>
       {playerId ? (
-        <GameClient matchID={matchId ?? ''} playerID={playerId} />
+        <GameClient matchID={matchId ?? ''} playerID={playerId} credentials={playerCredentials} />
       ) : (
-        <JoinGameForm matchId={matchId ?? ''} setPlayerId={setPlayerIdCallback} />
+        <JoinGameForm matchId={matchId ?? ''} setPlayer={setPlayerCallback} />
       )}
     </>
   );

@@ -1,1 +1,1 @@
-export type { GameState } from './GameState'
+export type { GameState } from './GameState';

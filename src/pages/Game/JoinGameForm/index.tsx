@@ -4,9 +4,9 @@ import { TheStitchesGame } from '../../../game/TheStitchesGame';
 
 interface JoinGameFormProps {
   matchId: string;
-  setPlayerId: (playerId: string) => void;
+  setPlayer: (playerId: string, credentials: string) => void;
 }
-export const JoinGameForm: React.FC<JoinGameFormProps> = ({ matchId, setPlayerId }) => {
+export const JoinGameForm: React.FC<JoinGameFormProps> = ({ matchId, setPlayer }) => {
   const [playerName, setPlayerName] = useState<string>();
 
   const joinGame = useCallback(() => {
@@ -18,8 +18,8 @@ export const JoinGameForm: React.FC<JoinGameFormProps> = ({ matchId, setPlayerId
       .joinMatch(TheStitchesGame.name ?? '', matchId, {
         playerName: playerName,
       })
-      .then((response) => setPlayerId(response.playerID));
-  }, [playerName, matchId, setPlayerId]);
+      .then((response) => setPlayer(response.playerID, response.playerCredentials));
+  }, [playerName, matchId, setPlayer]);
 
   return (
     <>

@@ -15,6 +15,7 @@
     "boardgame.io": "^0.49.11",
     "browserify-fs": "^1.0.0",
     "net-browserify": "^0.2.4",
+    "node-persist": "^3.1.0",
     "node-polyfill-webpack-plugin": "^1.1.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -26,7 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build:server": "tsc -p tsconfig.server.json",
-    "server": "node --unhandled-rejections=warn --es-module-specifier-resolution=node build-server/server/server.js",
+    "server": "SET DEBUG='*' && node --unhandled-rejections=warn --es-module-specifier-resolution=node build-server/server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
