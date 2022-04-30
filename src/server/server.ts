@@ -1,4 +1,6 @@
 import { Server, Origins, FlatFile } from 'boardgame.io/server';
+import path from 'path';
+import serve from 'koa-static';
 import { TheStitchesGame } from '../game/TheStitchesGame';
 
 export const server = Server({
@@ -15,10 +17,19 @@ export const server = Server({
   ],
 });
 
-server.run({
-  port: 8000,
-  lobbyConfig: {
-    apiPort: 8080,
-    apiCallback: () => console.log('Running Lobby API on port 8080...'),
+// Build path relative to the server.js file
+const frontEndAppBuildPath = path.resolve(__dirname, './build');
+server.app.use(serve(frontEndAppBuildPath));
+
+server.run(
+  {
+    port: 8000,
+    lobbyConfig: {
+      apiPort: 8080,
+      apiCallback: () => console.log('Running Lobby API on port 8080...'),
+    },
   },
-});
+  () => {
+    server.app.use(async (ctx, next) => await serve(frontEndAppBuildPath)(Object.assign(ctx, { path: 'index.html' }), next));
+  },
+);

@@ -1,0 +1,1 @@
+web: tsc -p tsconfig.server.json && node --unhandled-rejections=warn --es-module-specifier-resolution=node build-server/server/server.js
