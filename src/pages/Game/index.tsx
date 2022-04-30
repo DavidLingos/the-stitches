@@ -38,8 +38,7 @@ export const Game = () => {
   }
   return (
     <>
-      <div>Toto je hra s id {matchId}</div>
-      {playerId ? (
+      {playerId && playerCredentials ? (
         <GameClient matchID={matchId ?? ''} playerID={playerId} credentials={playerCredentials} />
       ) : (
         <JoinGameForm matchId={matchId ?? ''} setPlayer={setPlayerCallback} />

@@ -12,7 +12,7 @@ export const TheStitchesPlayersPanel: React.FC<TheStitchesPlayersPanelProps> = (
       {matchData
         .filter((i) => i.isConnected)
         .map((i) => (
-          <p>
+          <p key={i.id}>
             {i.name} {G.points[i.id]}
           </p>
         ))}

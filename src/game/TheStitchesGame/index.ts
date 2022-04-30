@@ -1,11 +1,15 @@
 import type { Game } from 'boardgame.io';
+import { AceLowRankSet, Hand, Player, PlayingCard } from 'typedeck';
 import type { GameState } from '../../interfaces';
+import { FullDeckGameType } from '../gameTypes/FullDeckGameType';
+import { PartialDeckGameType } from '../gameTypes/PartialDeckGameType';
 
 export const TheStitchesGame: Game<GameState> = {
   name: 'the-stitches',
   disableUndo: true,
-  minPlayers: 0,
-  maxPlayers: 10,
+  deltaState: true,
+  minPlayers: 2,
+  maxPlayers: 6,
   setup: (ctx) => ({
     currentRound: 1,
     currentRoundStitchesCount: Object.fromEntries(ctx.playOrder.map((playerId) => [playerId, 0])),
@@ -21,6 +25,8 @@ export const TheStitchesGame: Game<GameState> = {
         ? 10
         : 8,
     points: Object.fromEntries(ctx.playOrder.map((playerId) => [playerId, 0])),
+    playerHands: Object.fromEntries(ctx.playOrder.map((playerId) => [playerId, []])),
+    triumphCard: null,
   }),
   phases: {
     reportExpectedStitches: {
@@ -29,9 +35,21 @@ export const TheStitchesGame: Game<GameState> = {
           G.expectedStitchesCount[ctx.currentPlayer] = stitchesCount;
         },
       },
-      onBegin: (G) => {},
+      onBegin: (G, ctx) => {
+        const deck = ctx.playOrder.length < 4 ? new PartialDeckGameType().createDeck() : new FullDeckGameType().createDeck();
+        deck.shuffle();
+
+        ctx.playOrder.forEach((player) => {
+          const cards = deck.takeCards(G.numberOfRounds - G.currentRound + 1) as PlayingCard[];
+          G.playerHands[player] = cards.map((i) => ({ cardName: i.cardName, suit: i.suit }));
+        });
+
+        const triumphCard = deck.takeCard() as PlayingCard;
+        G.triumphCard = { cardName: triumphCard.cardName, suit: triumphCard.suit };
+      },
       endIf: (G) => Object.keys(G.expectedStitchesCount).every((i) => G.expectedStitchesCount[i]),
       next: 'play',
+      start: true,
     },
     play: {
       moves: {
@@ -42,6 +60,8 @@ export const TheStitchesGame: Game<GameState> = {
           if (G.currentRoundStitchesCount[player] === G.expectedStitchesCount[player]) {
             G.points[player] += G.expectedStitchesCount[player] ?? 0 + 10;
           }
+          G.expectedStitchesCount[player] = null;
+          G.currentRound++;
         });
       },
       next: 'reportExpectedStitches',

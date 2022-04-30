@@ -1,5 +1,5 @@
-import type { PlayerID } from "boardgame.io";
-
+import type { PlayerID } from 'boardgame.io';
+import { PlayerCard } from './PlayerCard';
 export interface GameState {
   currentRound: number;
   currentRoundStitchesCount: {
@@ -12,4 +12,8 @@ export interface GameState {
   points: {
     [key: PlayerID]: number;
   };
+  playerHands: {
+    [key: PlayerID]: PlayerCard[];
+  };
+  triumphCard: PlayerCard | null;
 }
