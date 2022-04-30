@@ -25,7 +25,7 @@ server.run(
   {
     port: Number(process.env.PORT) || 8000,
     lobbyConfig: {
-      apiPort: 8080,
+      apiPort: Number(process.env.PORT) || 8080,
       apiCallback: () => console.log('Running Lobby API on port 8080...'),
     },
   },
