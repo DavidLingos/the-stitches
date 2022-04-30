@@ -1,6 +1,7 @@
 import type { Game } from 'boardgame.io';
 import { AceLowRankSet, Hand, Player, PlayingCard } from 'typedeck';
 import type { GameState } from '../../interfaces';
+import { orderCards } from '../../utils/cards';
 import { FullDeckGameType } from '../gameTypes/FullDeckGameType';
 import { PartialDeckGameType } from '../gameTypes/PartialDeckGameType';
 
@@ -33,6 +34,7 @@ export const TheStitchesGame: Game<GameState> = {
       moves: {
         reportExpectedStitchesCount: (G, ctx, stitchesCount: number) => {
           G.expectedStitchesCount[ctx.currentPlayer] = stitchesCount;
+          ctx.events?.endTurn();
         },
       },
       onBegin: (G, ctx) => {
@@ -41,7 +43,7 @@ export const TheStitchesGame: Game<GameState> = {
 
         ctx.playOrder.forEach((player) => {
           const cards = deck.takeCards(G.numberOfRounds - G.currentRound + 1) as PlayingCard[];
-          G.playerHands[player] = cards.map((i) => ({ cardName: i.cardName, suit: i.suit }));
+          G.playerHands[player] = orderCards(cards.map((i) => ({ cardName: i.cardName, suit: i.suit })));
         });
 
         const triumphCard = deck.takeCard() as PlayingCard;
@@ -65,10 +67,22 @@ export const TheStitchesGame: Game<GameState> = {
         });
       },
       next: 'reportExpectedStitches',
+      turn: {
+        order: {
+          first: (G, ctx) => {
+            const firstReportPlayer = (G.currentRound % ctx.numPlayers) - 1;
+            let maxPlayerId = null;
+            for (let i = firstReportPlayer; i < ctx.numPlayers + firstReportPlayer; i++) {
+              const player = ctx.playOrder[i % ctx.numPlayers];
+              if (maxPlayerId === null || (G.expectedStitchesCount[player] ?? 0) >= (G.expectedStitchesCount[maxPlayerId] ?? 0)) {
+                maxPlayerId = player;
+              }
+            }
+            return ctx.playOrder.indexOf(maxPlayerId ?? '');
+          },
+          next: (G, ctx) => (ctx.playOrderPos + 1) % ctx.numPlayers,
+        },
+      },
     },
-  },
-  turn: {
-    minMoves: 1,
-    maxMoves: 1,
   },
 };
