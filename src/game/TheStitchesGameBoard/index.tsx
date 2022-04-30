@@ -10,9 +10,13 @@ import { CurrentStitchCardsPanel } from './panels/CurrentStitchCardsPanel';
 export const TheStitchesGameBoard: React.FC<BoardProps<GameState>> = ({ matchData, G, playerID, ctx, moves }) => {
   useEffect(() => {
     if (Object.keys(G.currentStitchCards).filter((i) => !G.currentStitchCards[i]).length === 0 && playerID === ctx.currentPlayer) {
-      moves.resetCurrentStitchCards();
+      setTimeout(moves.resetCurrentStitchCards, 5000);
     }
   }, [G.currentStitchCards, moves, playerID, ctx.currentPlayer]);
+
+  if (ctx.gameover) {
+    return <>Game is over</>;
+  }
   return (
     <>
       {matchData?.every((i) => i.isConnected) ? (

@@ -3,7 +3,7 @@ import { CardName, Suit } from 'typedeck';
 import { PlayerCard } from '../interfaces';
 
 const cardIdsMap = {
-  [CardName.Ace]: 'A',
+  [CardName.Ace]: '0',
   [CardName.Eight]: '8',
   [CardName.Five]: '5',
   [CardName.Four]: '4',
@@ -30,7 +30,7 @@ const cardsOrder = {
   [CardName.Queen]: 11,
   [CardName.Seven]: 6,
   [CardName.Six]: 5,
-  [CardName.Ten]: 10,
+  [CardName.Ten]: 9,
   [CardName.Three]: 2,
   [CardName.Two]: 1,
   [CardName.Joker]: 14,

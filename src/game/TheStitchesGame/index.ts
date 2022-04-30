@@ -9,7 +9,6 @@ import { PartialDeckGameType } from '../gameTypes/PartialDeckGameType';
 export const TheStitchesGame: Game<GameState> = {
   name: 'the-stitches',
   disableUndo: true,
-  deltaState: true,
   minPlayers: 2,
   maxPlayers: 6,
   setup: (ctx) => ({
@@ -38,6 +37,9 @@ export const TheStitchesGame: Game<GameState> = {
         reportExpectedStitchesCount: (G, ctx, stitchesCount: number) => {
           G.expectedStitchesCount[ctx.currentPlayer] = stitchesCount;
           ctx.events?.endTurn();
+          if (Object.keys(G.expectedStitchesCount).every((i) => G.expectedStitchesCount[i])) {
+            ctx.events?.setPhase('play');
+          }
         },
       },
       onBegin: (G, ctx) => {
@@ -52,8 +54,14 @@ export const TheStitchesGame: Game<GameState> = {
         const triumphCard = deck.takeCard() as PlayingCard;
         G.triumphCard = { cardName: triumphCard.cardName, suit: triumphCard.suit };
       },
-      endIf: (G) => Object.keys(G.expectedStitchesCount).every((i) => G.expectedStitchesCount[i]),
-      next: 'play',
+      turn: {
+        order: {
+          first: (G, ctx) => {
+            return (G.currentRound % ctx.numPlayers) - 1;
+          },
+          next: (G, ctx) => (ctx.playOrderPos + 1) % ctx.numPlayers,
+        },
+      },
       start: true,
     },
     play: {
@@ -70,14 +78,20 @@ export const TheStitchesGame: Game<GameState> = {
             }
             const topCardPlayerId = getTopCardPlayerId(G.currentStitchCards, G.triumphCard, startCard);
             G.currentRoundStitchesCount[topCardPlayerId] += 1;
-            G.stitchStartPlayer = topCardPlayerId;
             ctx.events?.endTurn({ next: topCardPlayerId });
           } else {
             ctx.events?.endTurn();
           }
+          if (Object.keys(G.playerHands).every((i) => !G.playerHands[i].length)) {
+            ctx.events?.setPhase('reportExpectedStitches');
+          }
         },
         resetCurrentStitchCards: (G) => {
-          Object.keys(G.currentStitchCards).forEach((i) => (G.currentStitchCards[i] = null));
+          const startCard = G.currentStitchCards[G.stitchStartPlayer ?? ''];
+          if (G.triumphCard && startCard) {
+            G.stitchStartPlayer = getTopCardPlayerId(G.currentStitchCards, G.triumphCard, startCard);
+            Object.keys(G.currentStitchCards).forEach((i) => (G.currentStitchCards[i] = null));
+          }
         },
       },
       onBegin: (G, ctx) => {
@@ -88,13 +102,20 @@ export const TheStitchesGame: Game<GameState> = {
         ctx.playOrder.forEach((player) => {
           if (G.currentRoundStitchesCount[player] === G.expectedStitchesCount[player]) {
             G.points[player] += G.expectedStitchesCount[player] ?? 0 + 10;
+          } else {
+            G.points[player] -= G.currentRoundStitchesCount[player] ?? 0;
           }
           G.expectedStitchesCount[player] = null;
-          G.currentRound++;
+          G.currentStitchCards[player] = null;
+          G.currentRoundStitchesCount[player] = 0;
         });
+        G.stitchStartPlayer = null;
+        if (G.currentRound < G.numberOfRounds) {
+          G.currentRound++;
+        } else {
+          ctx.events?.endGame(true);
+        }
       },
-      endIf: (G) => Object.keys(G.playerHands).every((i) => !i.length),
-      next: 'reportExpectedStitches',
       turn: {
         order: {
           first: (G, ctx) => {
