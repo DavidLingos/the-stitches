@@ -1,5 +1,5 @@
 import { LobbyClient } from 'boardgame.io/client';
 
 export const lobbyClient = new LobbyClient({
-  server: `http://${window.location.hostname}:8080`
-})
+  server: `${window.location.hostname === 'localhost' ? 'http' : 'https'}://${window.location.hostname}:8080`,
+});
