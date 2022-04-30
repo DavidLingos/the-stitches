@@ -1,15 +1,17 @@
-import { FilteredMetadata } from 'boardgame.io';
+import { Ctx, FilteredMetadata } from 'boardgame.io';
 import { GameState } from '../../../interfaces';
 import { getCardUrl } from '../../../utils/cards';
 
 interface GameStatusPanelProps {
   matchData: FilteredMetadata;
   G: GameState;
+  ctx: Ctx;
 }
-export const GameStatusPanel: React.FC<GameStatusPanelProps> = ({ matchData, G }) => {
+export const GameStatusPanel: React.FC<GameStatusPanelProps> = ({ matchData, G, ctx }) => {
   return (
     <div>
       <h2>Kolo: {G.currentRound}</h2>
+      <h2>Hraje: {matchData.find((i) => i.id?.toString() === ctx.currentPlayer)?.name}</h2>
       <h2>Trumfová karta</h2>
       {G.triumphCard && <img width={100} src={getCardUrl(G.triumphCard)} />}
       <h2>Nahlášené štychy</h2>

@@ -1,3 +1,4 @@
+import { PlayerID } from 'boardgame.io';
 import { CardName, Suit } from 'typedeck';
 import { PlayerCard } from '../interfaces';
 
@@ -12,7 +13,7 @@ const cardIdsMap = {
   [CardName.Queen]: 'Q',
   [CardName.Seven]: '7',
   [CardName.Six]: '6',
-  [CardName.Ten]: '0',
+  [CardName.Ten]: 'T',
   [CardName.Three]: '3',
   [CardName.Two]: '2',
   [CardName.Joker]: 'J',
@@ -50,9 +51,29 @@ const suitsOrder = {
 };
 
 export const getCardUrl = (card: PlayerCard) => {
-  return `http://deckofcardsapi.com/static/img/${cardIdsMap[card.cardName]}${suitsMap[card.suit]}.png`;
+  return `/static/img/${cardIdsMap[card.cardName]}${suitsMap[card.suit]}.svg`;
 };
 
 export const orderCards = (cards: PlayerCard[]) => {
   return cards.sort((a, b) => suitsOrder[a.suit] - suitsOrder[b.suit] || cardsOrder[a.cardName] - cardsOrder[b.cardName]);
+};
+
+export const getTopCardPlayerId = (
+  cards: {
+    [key: PlayerID]: PlayerCard | null;
+  },
+  triumphCard: PlayerCard,
+  startCard: PlayerCard,
+): PlayerID => {
+  const stitchSuitsOrder: Map<string, number> = new Map();
+  stitchSuitsOrder.set(triumphCard.suit.toString(), 0);
+  stitchSuitsOrder.set(startCard.suit.toString(), 1);
+  Object.keys(Suit)
+    .filter((i) => !stitchSuitsOrder.has(i))
+    .forEach((suit) => stitchSuitsOrder.set(suit, 1000));
+  return Object.keys(cards).sort(
+    (a, b) =>
+      (stitchSuitsOrder.get(cards[a]?.suit.toString() ?? '') ?? 0) - (stitchSuitsOrder.get(cards[b]?.suit.toString() ?? '') ?? 0) ||
+      cardsOrder[cards[b]?.cardName ?? CardName.Ace] - cardsOrder[cards[a]?.cardName ?? CardName.Ace],
+  )[0];
 };

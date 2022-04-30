@@ -26,7 +26,7 @@ export const ReportExpectedStitchesPanel: React.FC<ReportExpectedStitchesPanelPr
       return;
     }
     if (
-      Object.keys(G.expectedStitchesCount).filter((x) => x !== null).length === ctx.numPlayers - 1 &&
+      Object.keys(G.expectedStitchesCount).filter((x) => G.expectedStitchesCount[x] !== null).length === ctx.numPlayers - 1 &&
       getExpectedStitchesSum(G.expectedStitchesCount) + expectedStitches === G.numberOfRounds - G.currentRound + 1
     ) {
       alert('Počet štychů se nesmí rovnat počtu karet.');
