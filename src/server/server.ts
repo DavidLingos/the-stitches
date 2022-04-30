@@ -24,10 +24,6 @@ server.app.use(serve(frontEndAppBuildPath));
 server.run(
   {
     port: Number(process.env.PORT) || 8000,
-    lobbyConfig: {
-      apiPort: Number(process.env.PORT) || 8080,
-      apiCallback: () => console.log('Running Lobby API on port 8080...'),
-    },
   },
   () => {
     server.app.use(async (ctx, next) => await serve(frontEndAppBuildPath)(Object.assign(ctx, { path: 'index.html' }), next));
