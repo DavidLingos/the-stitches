@@ -23,7 +23,13 @@ server.app.use(serve(frontEndAppBuildPath));
 
 server.run(
   {
-    port: Number(process.env.PORT) || 8000,
+    port: (process.env.PORT && Number(process.env.PORT)) || 8000,
+    lobbyConfig:
+      process.env.NODE_ENV !== 'production'
+        ? {
+            apiPort: 8080,
+          }
+        : undefined,
   },
   () => {
     server.app.use(async (ctx, next) => await serve(frontEndAppBuildPath)(Object.assign(ctx, { path: 'index.html' }), next));

@@ -1,4 +1,4 @@
-import type { Game } from 'boardgame.io';
+import type { Game, PlayerID } from 'boardgame.io';
 import { AceLowRankSet, Hand, Player, PlayingCard } from 'typedeck';
 import type { GameState, PlayerCard } from '../../interfaces';
 import { getTopCardPlayerId, orderCards } from '../../utils/cards';
@@ -25,7 +25,7 @@ export const TheStitchesGame: Game<GameState> = {
         : ctx.playOrder.length === 5
         ? 10
         : 8,
-    points: Object.fromEntries(ctx.playOrder.map((playerId) => [playerId, 0])),
+    points: [],
     playerHands: Object.fromEntries(ctx.playOrder.map((playerId) => [playerId, []])),
     triumphCard: null,
     currentStitchCards: Object.fromEntries(ctx.playOrder.map((playerId) => [playerId, null])),
@@ -99,18 +99,22 @@ export const TheStitchesGame: Game<GameState> = {
         G.stitchStartPlayer = maxPlayerId;
       },
       onEnd: (G, ctx) => {
+        const currentRoundPoints: {
+          [key: PlayerID]: number;
+        } = {};
         ctx.playOrder.forEach((player) => {
           if (G.currentRoundStitchesCount[player] === G.expectedStitchesCount[player]) {
-            G.points[player] += G.expectedStitchesCount[player] ?? 0 + 10;
+            currentRoundPoints[player] = G.expectedStitchesCount[player] ?? 0 + 10;
           } else {
-            G.points[player] -= G.currentRoundStitchesCount[player] ?? 0;
+            currentRoundPoints[player] = -(G.currentRoundStitchesCount[player] ?? 0);
           }
           G.expectedStitchesCount[player] = null;
           G.currentStitchCards[player] = null;
           G.currentRoundStitchesCount[player] = 0;
         });
+        G.points.push(currentRoundPoints);
         G.stitchStartPlayer = null;
-        if (G.currentRound < G.numberOfRounds) {
+        if (G.currentRound > G.numberOfRounds) {
           G.currentRound++;
         } else {
           ctx.events?.endGame(true);

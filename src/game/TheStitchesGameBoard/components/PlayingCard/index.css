@@ -1,0 +1,10 @@
+.playing-card {
+  width: 100px;
+  transition-duration: .3s;
+}
+
+.playing-card-clickable:hover {
+  cursor: pointer;
+  transform: translateY(-10px);
+  z-index: 100;
+}

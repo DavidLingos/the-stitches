@@ -1,13 +1,22 @@
-import { FilteredMetadata } from 'boardgame.io';
+import { useState } from 'react';
 
-interface WaitingForAllPlayersToConnectPanelProps {
-  matchData?: FilteredMetadata;
-}
-export const WaitingForAllPlayersToConnectPanel: React.FC<WaitingForAllPlayersToConnectPanelProps> = ({ matchData }) => {
+export const WaitingForAllPlayersToConnectPanel = () => {
+  const [isCoppiedToClipboardLabelVisible, setIsCoppiedToClipboardLabelVisible] = useState<boolean>(false);
+
   return (
-    <>
-      Waiting for all players to join..
-      {matchData && matchData.filter((i) => i.isConnected).map((i) => <p key={i.id}>{i.name}</p>)}
-    </>
+    <div className="centerize-container">
+      <p>Čekám na připojení všech hráčů.</p>
+      Pro připojení hráče mu zašlete tento odkaz (kliknutím jej zkopírujete do schránky):
+      <button
+        className="btn btn-link"
+        onClick={() => {
+          navigator.clipboard.writeText(window.location.href);
+          setIsCoppiedToClipboardLabelVisible(true);
+          setTimeout(() => setIsCoppiedToClipboardLabelVisible(false), 3000);
+        }}>
+        {window.location.href}
+      </button>
+      {isCoppiedToClipboardLabelVisible && <>Odkaz zkopírován do schránky</>}
+    </div>
   );
 };

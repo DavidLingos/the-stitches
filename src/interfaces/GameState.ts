@@ -5,7 +5,7 @@ export interface GameState {
   currentRound: number;
   points: {
     [key: PlayerID]: number;
-  };
+  }[];
   expectedStitchesCount: {
     [key: PlayerID]: number | null;
   };

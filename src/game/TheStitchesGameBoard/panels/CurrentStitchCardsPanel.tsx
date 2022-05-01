@@ -2,6 +2,7 @@ import { Ctx, PlayerID } from 'boardgame.io';
 import { useEffect, useMemo, useState } from 'react';
 import { GameState, PlayerCard } from '../../../interfaces';
 import { getCardUrl } from '../../../utils/cards';
+import { PlayingCard } from '../components/PlayingCard';
 
 interface CurrentStitchCardsPanelProps {
   G: GameState;
@@ -15,7 +16,7 @@ export const CurrentStitchCardsPanel: React.FC<CurrentStitchCardsPanelProps> = (
     for (let i = startIndex; i < startIndex + ctx.numPlayers; i++) {
       const card = G.currentStitchCards[ctx.playOrder[i % ctx.numPlayers]];
       if (card) {
-        result.push(<img width={100} src={getCardUrl(card)} />);
+        result.push(<PlayingCard card={card} />);
       }
     }
     return result;

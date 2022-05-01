@@ -6,6 +6,7 @@ import { GameStatusPanel } from './panels/GameStatusPanel';
 import { WaitingForAllPlayersToConnectPanel } from './panels/WaitingForAllPlayersToConnectPanel';
 import { ReportExpectedStitchesPanel } from './panels/ReportExpectedStitchesPanel';
 import { CurrentStitchCardsPanel } from './panels/CurrentStitchCardsPanel';
+import { GameOverPanel } from './panels/GameOverPanel';
 
 export const TheStitchesGameBoard: React.FC<BoardProps<GameState>> = ({ matchData, G, playerID, ctx, moves }) => {
   useEffect(() => {
@@ -14,8 +15,8 @@ export const TheStitchesGameBoard: React.FC<BoardProps<GameState>> = ({ matchDat
     }
   }, [G.currentStitchCards, moves, playerID, ctx.currentPlayer]);
 
-  if (ctx.gameover) {
-    return <>Game is over</>;
+  if (ctx.gameover && matchData) {
+    return <GameOverPanel G={G} matchData={matchData} />;
   }
   return (
     <>
@@ -29,7 +30,7 @@ export const TheStitchesGameBoard: React.FC<BoardProps<GameState>> = ({ matchDat
           {playerID && <PlayerHandPanel G={G} playerId={playerID} ctx={ctx} moves={moves} />}
         </div>
       ) : (
-        <WaitingForAllPlayersToConnectPanel matchData={matchData} />
+        <WaitingForAllPlayersToConnectPanel />
       )}
     </>
   );
