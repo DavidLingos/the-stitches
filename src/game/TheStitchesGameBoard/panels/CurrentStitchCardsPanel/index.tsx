@@ -1,14 +1,12 @@
-import { Ctx } from 'boardgame.io';
 import { useMemo } from 'react';
-import { GameState } from '../../../interfaces';
-import { PlayingCard } from '../components/PlayingCard';
+import { useTheStitchesGame } from '../..';
+import { PlayingCard } from '../../components/PlayingCard';
 
-interface CurrentStitchCardsPanelProps {
-  G: GameState;
-  ctx: Ctx;
-}
+export const CurrentStitchCardsPanel = () => {
+  const {
+    board: { G, ctx },
+  } = useTheStitchesGame();
 
-export const CurrentStitchCardsPanel: React.FC<CurrentStitchCardsPanelProps> = ({ G, ctx }) => {
   const cards = useMemo(() => {
     const result = [];
     const startIndex = ctx.playOrder.indexOf(G.stitchStartPlayer ?? '');

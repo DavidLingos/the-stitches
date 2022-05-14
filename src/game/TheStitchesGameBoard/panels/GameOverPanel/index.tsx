@@ -1,16 +1,16 @@
 import { Ctx, FilteredMetadata } from 'boardgame.io';
 import { useNavigate, useParams } from 'react-router-dom';
-import { lobbyClient } from '../../../api/lobbyClient';
-import { GameState } from '../../../interfaces';
-import { TheStitchesGame } from '../../TheStitchesGame';
-import { ResultsTable } from '../components/ResultsTable';
+import { useTheStitchesGame } from '../..';
+import { lobbyClient } from '../../../../api/lobbyClient';
+import { GameState } from '../../../../interfaces';
+import { TheStitchesGame } from '../../../TheStitchesGame';
+import { ResultsTable } from '../../components/ResultsTable';
 
-interface GameOverPanelProps {
-  matchData: FilteredMetadata;
-  G: GameState;
-}
+export const GameOverPanel = () => {
+  const {
+    board: { G, matchData },
+  } = useTheStitchesGame();
 
-export const GameOverPanel: React.FC<GameOverPanelProps> = ({ matchData, G }) => {
   const navigate = useNavigate();
   const params = useParams();
   const matchId = params.matchId ?? '';
@@ -29,7 +29,7 @@ export const GameOverPanel: React.FC<GameOverPanelProps> = ({ matchData, G }) =>
   };
   return (
     <div className="centerize-container">
-      <ResultsTable G={G} matchData={matchData} />
+      <ResultsTable />
       <button onClick={playAgain} className="btn btn-success">
         Hrát znovu
       </button>

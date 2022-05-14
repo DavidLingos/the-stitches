@@ -5,7 +5,7 @@
   background-color: #4aad4a;
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 45%;
   transform: translateX(-50%) translateY(-50%);
   border-radius: 150px;
   border: 15px solid #a95555;
@@ -38,11 +38,13 @@
 .the-stitches-table-cards {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   width: 75%;
+  z-index: 100;
 }
 
 .the-stitches-table-stitch-cards .playing-card {

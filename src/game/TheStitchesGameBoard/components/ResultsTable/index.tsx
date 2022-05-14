@@ -1,12 +1,11 @@
 import { FilteredMetadata } from 'boardgame.io';
+import { useTheStitchesGame } from '../..';
 import { GameState } from '../../../../interfaces';
 
-interface ResultsTableProps {
-  matchData: FilteredMetadata;
-  G: GameState;
-}
-
-export const ResultsTable: React.FC<ResultsTableProps> = ({ matchData, G }) => {
+export const ResultsTable = () => {
+  const {
+    board: { G, matchData },
+  } = useTheStitchesGame();
   return (
     <>
       <h2>Výsledková listina</h2>
@@ -15,7 +14,7 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({ matchData, G }) => {
           <thead>
             <tr>
               <th scope="col">#</th>
-              {matchData.map((i) => (
+              {matchData?.map((i) => (
                 <th key={i.id} scope="col">
                   {i.name}
                 </th>
@@ -27,19 +26,19 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({ matchData, G }) => {
               <tr>
                 <th scope="row">{G.numberOfRounds - idx}</th>
                 {G.points.length > idx
-                  ? matchData.map((i) => (
+                  ? matchData?.map((i) => (
                       <td key={i.id}>
                         {G.points[idx][i.id]} ({G.expectedStitchesCount[i.id]})
                       </td>
                     ))
-                  : matchData.map((i) => <td key={i.id}>-</td>)}
+                  : matchData?.map((i) => <td key={i.id}>-</td>)}
               </tr>
             ))}
           </tbody>
           <tfoot>
             <tr>
               <td>Součet</td>
-              {matchData.map((i) => (
+              {matchData?.map((i) => (
                 <td>{G.points.reduce((n, item) => n + item[i.id], 0)}</td>
               ))}
             </tr>

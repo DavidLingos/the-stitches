@@ -1,12 +1,6 @@
-import { Ctx, PlayerID } from 'boardgame.io';
+import { PlayerID } from 'boardgame.io';
 import { useState } from 'react';
-import { GameState } from '../../../interfaces';
-
-interface ReportExpectedStitchesPanelProps {
-  G: GameState;
-  moves: Record<string, (...args: any[]) => void>;
-  ctx: Ctx;
-}
+import { useTheStitchesGame } from '../..';
 
 const getExpectedStitchesSum = (expectedStitchesCount: { [key: PlayerID]: number | null }) => {
   let result = 0;
@@ -14,7 +8,10 @@ const getExpectedStitchesSum = (expectedStitchesCount: { [key: PlayerID]: number
   return result;
 };
 
-export const ReportExpectedStitchesPanel: React.FC<ReportExpectedStitchesPanelProps> = ({ G, moves, ctx }) => {
+export const ReportExpectedStitchesPanel = () => {
+  const {
+    board: { G, ctx, moves },
+  } = useTheStitchesGame();
   const [expectedStitches, setExpectedStitches] = useState<number>();
   const onConfirm = () => {
     if (expectedStitches === undefined) {
@@ -39,10 +36,10 @@ export const ReportExpectedStitchesPanel: React.FC<ReportExpectedStitchesPanelPr
     }
   };
   return (
-    <>
+    <div className="report-expected-stitches">
       Zadej počet štychů
       <input type="number" onChange={(e) => setExpectedStitches(Number(e.target.value))} />
-      <button onClick={onConfirm}>Confirm</button>
-    </>
+      <button onClick={onConfirm}>Potvrdit</button>
+    </div>
   );
 };
