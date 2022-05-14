@@ -10,5 +10,12 @@ interface PlayingCardProps {
 }
 
 export const PlayingCard: React.FC<PlayingCardProps> = ({ card, onClick }) => {
-  return <img className={`playing-card ${onClick ? 'playing-card-clickable' : ''}`} src={getCardUrl(card)} onClick={onClick} />;
+  return (
+    <img
+      className={`playing-card ${onClick ? 'playing-card-clickable' : ''}`}
+      src={getCardUrl(card)}
+      alt="Playing card"
+      onClick={onClick}
+    />
+  );
 };

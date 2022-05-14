@@ -27,7 +27,11 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({ matchData, G }) => {
               <tr>
                 <th scope="row">{G.numberOfRounds - idx}</th>
                 {G.points.length > idx
-                  ? matchData.map((i) => <td key={i.id}>{G.points[idx][i.id]}</td>)
+                  ? matchData.map((i) => (
+                      <td key={i.id}>
+                        {G.points[idx][i.id]} ({G.expectedStitchesCount[i.id]})
+                      </td>
+                    ))
                   : matchData.map((i) => <td key={i.id}>-</td>)}
               </tr>
             ))}

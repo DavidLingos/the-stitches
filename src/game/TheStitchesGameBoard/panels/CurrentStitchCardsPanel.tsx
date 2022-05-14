@@ -1,7 +1,6 @@
-import { Ctx, PlayerID } from 'boardgame.io';
-import { useEffect, useMemo, useState } from 'react';
-import { GameState, PlayerCard } from '../../../interfaces';
-import { getCardUrl } from '../../../utils/cards';
+import { Ctx } from 'boardgame.io';
+import { useMemo } from 'react';
+import { GameState } from '../../../interfaces';
 import { PlayingCard } from '../components/PlayingCard';
 
 interface CurrentStitchCardsPanelProps {

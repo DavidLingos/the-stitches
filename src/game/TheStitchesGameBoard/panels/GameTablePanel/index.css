@@ -1,0 +1,56 @@
+.the-stitches-table {
+  width: 50%;
+  height: 450px;
+  min-width: 600px;
+  background-color: #4aad4a;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 150px;
+  border: 15px solid #a95555;
+}
+
+.the-stitches-table:before {
+  content: '';
+  border: 7px solid rgba(0, 0, 0, 0.1);
+  display: block;
+  width: calc(100% + 30px);
+  height: calc(100% + 30px);
+  border-radius: 150px;
+  position: absolute;
+  top: -15px;
+  left: -15px;
+} 
+
+.the-stitches-table:after {
+  content: '';
+  border: 7px solid rgba(0, 0, 0, 0.1);
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 130px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.the-stitches-table-cards {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 75%;
+}
+
+.the-stitches-table-stitch-cards .playing-card {
+  margin: 0 5px;
+}
+
+.the-stitches-table-triumph-card {
+  margin-right: 30px;
+  border: 2px solid #FFD700;
+  border-radius: 3px;
+}

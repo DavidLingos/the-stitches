@@ -1,8 +1,10 @@
 import { Ctx } from 'boardgame.io';
 import { CardName, Suit } from 'typedeck';
-import { GameState, PlayerCard } from '../../../interfaces';
-import { getCardUrl, orderCards } from '../../../utils/cards';
-import { PlayingCard } from '../components/PlayingCard';
+import { GameState, PlayerCard } from '../../../../interfaces';
+import { getCardUrl, orderCards } from '../../../../utils/cards';
+import { PlayingCard } from '../../components/PlayingCard';
+
+import './index.css';
 
 interface PlayerHandPanelProps {
   playerId: string;
@@ -27,7 +29,7 @@ export const PlayerHandPanel: React.FC<PlayerHandPanelProps> = ({ G, playerId, c
   };
 
   return (
-    <div className="d-flex">
+    <div className="player-hand">
       {G.playerHands[playerId].map((i, idx) => (
         <PlayingCard key={idx} card={i} onClick={() => onCardClick(i)} />
       ))}

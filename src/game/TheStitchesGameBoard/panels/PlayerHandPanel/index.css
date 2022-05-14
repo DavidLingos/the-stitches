@@ -1,0 +1,12 @@
+.player-hand {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  column-gap: -40px;
+}
+
+.player-hand .playing-card {
+  margin: 0 -20px;
+}
