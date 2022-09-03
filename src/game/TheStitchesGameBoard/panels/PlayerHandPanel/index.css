@@ -4,7 +4,6 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  column-gap: -40px;
 }
 
 .player-hand .playing-card {

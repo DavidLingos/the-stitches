@@ -1,14 +1,15 @@
 import { FilteredMetadata } from 'boardgame.io';
 import { useTheStitchesGame } from '../..';
-import { GameState } from '../../../../interfaces';
+
+import './index.css';
 
 export const ResultsTable = () => {
   const {
-    board: { G, matchData },
+    board: { G, matchData, ctx },
   } = useTheStitchesGame();
   return (
-    <>
-      <h2>Výsledková listina</h2>
+    <div className="result-list">
+      <h2>Skóre</h2>
       <div className="table-responzive text-center">
         <table className="table table-bordered">
           <thead>
@@ -25,13 +26,12 @@ export const ResultsTable = () => {
             {[...Array(G.numberOfRounds)].map((i, idx) => (
               <tr>
                 <th scope="row">{G.numberOfRounds - idx}</th>
-                {G.points.length > idx
-                  ? matchData?.map((i) => (
-                      <td key={i.id}>
-                        {G.points[idx][i.id]} ({G.expectedStitchesCount[i.id]})
-                      </td>
-                    ))
-                  : matchData?.map((i) => <td key={i.id}>-</td>)}
+                {matchData?.map((i) => (
+                  <td key={i.id}>
+                    {G.points.length > idx && G.points[idx][i.id]}
+                    {G.currentRound - 1 === idx && <>({G.expectedStitchesCount[i.id]})</>}
+                  </td>
+                ))}
               </tr>
             ))}
           </tbody>
@@ -45,6 +45,7 @@ export const ResultsTable = () => {
           </tfoot>
         </table>
       </div>
-    </>
+      <h4>Hraje: {matchData?.find((i) => i.id?.toString() === ctx.currentPlayer)?.name}</h4>
+    </div>
   );
 };

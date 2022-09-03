@@ -1,5 +1,7 @@
+import { useMemo } from 'react';
 import { useTheStitchesGame } from '../..';
 import { PlayingCard } from '../../components/PlayingCard';
+import { TablePlayer } from '../../components/TablePlayer';
 import { CurrentStitchCardsPanel } from '../CurrentStitchCardsPanel';
 import { ReportExpectedStitchesPanel } from '../ReportExpectedStitchesPanel';
 
@@ -9,6 +11,7 @@ export const GameTable = () => {
   const {
     board: { G, ctx, playerID },
   } = useTheStitchesGame();
+
   return (
     <div className="the-stitches-table">
       <div className="the-stitches-table-cards">
@@ -18,6 +21,9 @@ export const GameTable = () => {
         </div>
         <div className="the-stitches-table-triumph-card">{G.triumphCard && <PlayingCard card={G.triumphCard} />}</div>
       </div>
+      {ctx.playOrder.map((i) => (
+        <TablePlayer playerId={i} />
+      ))}
     </div>
   );
 };

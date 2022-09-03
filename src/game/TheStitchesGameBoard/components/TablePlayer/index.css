@@ -1,0 +1,38 @@
+.table-player {
+  text-align: center;
+  position: absolute;
+}
+
+.table-player img {
+  display: block;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.table-player .table-player-name {
+  display: block;
+}
+
+.table-player-0 {
+  bottom: -135px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.table-player-180 {
+  top: -135px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.table-player-120 {
+  top: -135px;
+  left: 0%;
+  transform: translateX(-50%);
+}
+
+.table-player-240 {
+  top: -135px;
+  right: 0%;
+  transform: translateX(50%);
+}
