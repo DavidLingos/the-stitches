@@ -57,7 +57,7 @@ export const TheStitchesGame: Game<GameState> = {
       turn: {
         order: {
           first: (G, ctx) => {
-            return (G.currentRound % ctx.numPlayers) - 1;
+            return G.currentRound % ctx.numPlayers;
           },
           next: (G, ctx) => (ctx.playOrderPos + 1) % ctx.numPlayers,
         },
@@ -104,9 +104,9 @@ export const TheStitchesGame: Game<GameState> = {
         } = {};
         ctx.playOrder.forEach((player) => {
           if (G.currentRoundStitchesCount[player] === G.expectedStitchesCount[player]) {
-            currentRoundPoints[player] = G.expectedStitchesCount[player] ?? 0 + 10;
+            currentRoundPoints[player] = (G.expectedStitchesCount[player] ?? 0) + 10;
           } else {
-            currentRoundPoints[player] = -(G.currentRoundStitchesCount[player] ?? 0);
+            currentRoundPoints[player] = -(G.expectedStitchesCount[player] ?? 0);
           }
           G.expectedStitchesCount[player] = null;
           G.currentStitchCards[player] = null;
