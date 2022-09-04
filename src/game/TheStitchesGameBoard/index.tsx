@@ -27,13 +27,10 @@ export const TheStitchesGameBoard: React.FC<BoardProps<GameState>> = (board) => 
     }
   }, [G.currentStitchCards, moves, playerID, ctx.currentPlayer]);
 
-  if (ctx.gameover && matchData) {
-    return <GameOverPanel />;
-  }
-
   return (
     <TheStitchesGameBoardContext.Provider value={{ board }}>
-      {matchData?.every((i) => i.name) ? (
+      {ctx.gameover && matchData && <GameOverPanel />}
+      {(!ctx.gameover || !matchData) && matchData?.every((i) => i.name) ? (
         <>
           <div className="the-stitches">
             <GameTable />
