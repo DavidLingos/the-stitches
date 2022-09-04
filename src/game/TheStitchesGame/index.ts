@@ -115,9 +115,9 @@ export const TheStitchesGame: Game<GameState> = {
         G.points.push(currentRoundPoints);
         G.stitchStartPlayer = null;
         if (G.currentRound > G.numberOfRounds) {
-          G.currentRound++;
-        } else {
           ctx.events?.endGame(true);
+        } else {
+          G.currentRound++;
         }
       },
       turn: {
