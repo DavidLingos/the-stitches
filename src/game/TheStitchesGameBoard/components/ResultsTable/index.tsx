@@ -29,7 +29,11 @@ export const ResultsTable = () => {
                 {matchData?.map((i) => (
                   <td key={i.id}>
                     {G.points.length > idx && G.points[idx][i.id]}
-                    {G.currentRound - 1 === idx && <>({G.expectedStitchesCount[i.id]})</>}
+                    {G.currentRound - 1 === idx && (
+                      <>
+                        ({G.currentRoundStitchesCount[i.id]}/{G.expectedStitchesCount[i.id]})
+                      </>
+                    )}
                   </td>
                 ))}
               </tr>
