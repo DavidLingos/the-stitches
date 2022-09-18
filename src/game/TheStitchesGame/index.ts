@@ -37,7 +37,7 @@ export const TheStitchesGame: Game<GameState> = {
         reportExpectedStitchesCount: (G, ctx, stitchesCount: number) => {
           G.expectedStitchesCount[ctx.currentPlayer] = stitchesCount;
           ctx.events?.endTurn();
-          if (Object.keys(G.expectedStitchesCount).every((i) => G.expectedStitchesCount[i] !== undefined)) {
+          if (Object.keys(G.expectedStitchesCount).every((i) => G.expectedStitchesCount[i] !== null)) {
             ctx.events?.setPhase('play');
           }
         },
