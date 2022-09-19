@@ -20,7 +20,7 @@
 }
 
 .table-player-180 {
-  top: -135px;
+  top: -145px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -35,4 +35,16 @@
   top: -135px;
   right: 0%;
   transform: translateX(50%);
+}
+
+.table-player-90 {
+  bottom: 50%;
+  left: 0;
+  transform: translateX(-125%) translateY(50%);
+}
+
+.table-player-270 {
+  bottom: 50%;
+  right: 0;
+  transform: translateX(125%) translateY(50%);
 }
