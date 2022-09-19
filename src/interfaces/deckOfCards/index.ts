@@ -1,1 +1,1 @@
-export type { ShuffleNewDeckResponse} from './ShuffleNewDeckResponse'
+export type { ShuffleNewDeckResponse } from './ShuffleNewDeckResponse';

@@ -11,6 +11,7 @@ export const PlayerHandPanel = () => {
   const {
     board: { G, ctx, playerID, moves },
   } = useTheStitchesGame();
+
   const onCardClick = (card: PlayerCard) => {
     if (
       ctx.currentPlayer === playerID &&
