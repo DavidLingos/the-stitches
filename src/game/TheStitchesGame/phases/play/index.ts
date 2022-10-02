@@ -1,6 +1,5 @@
 import { Ctx, PhaseConfig, PlayerID } from 'boardgame.io';
-import { GameState, PlayerCard } from '../../../../interfaces';
-import { getTopCardPlayerId } from '../../../../utils/cards';
+import { GameState } from '../../../../interfaces';
 import { getPlayerWithMaxReportedStitches } from '../../../../utils/game';
 import moves from './moves';
 

@@ -13,6 +13,7 @@
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "axios": "^0.26.1",
+    "bgio-firebase": "^0.4.1",
     "boardgame.io": "^0.49.11",
     "browserify-fs": "^1.0.0",
     "koa-static": "^5.0.0",

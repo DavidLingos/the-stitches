@@ -1,4 +1,4 @@
-import { Ctx, PlayerID } from 'boardgame.io';
+import { Ctx } from 'boardgame.io';
 import { GameState, PlayerCard } from '../../../../interfaces';
 import { getTopCardPlayerId } from '../../../../utils/cards';
 

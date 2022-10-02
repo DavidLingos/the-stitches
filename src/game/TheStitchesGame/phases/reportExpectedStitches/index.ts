@@ -1,4 +1,4 @@
-import { Ctx, Game, PhaseConfig } from 'boardgame.io';
+import { Ctx, PhaseConfig } from 'boardgame.io';
 import { PlayingCard } from 'typedeck';
 import { GameState } from '../../../../interfaces';
 import { orderCards } from '../../../../utils/cards';

@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { lobbyClient } from '../../api/lobbyClient';
 import { TheStitchesGame } from '../../game/TheStitchesGame';

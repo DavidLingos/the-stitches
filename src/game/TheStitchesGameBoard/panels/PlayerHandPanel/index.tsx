@@ -1,8 +1,5 @@
-import { Ctx } from 'boardgame.io';
-import { CardName, Suit } from 'typedeck';
 import { useTheStitchesGame } from '../..';
-import { GameState, PlayerCard } from '../../../../interfaces';
-import { getCardUrl, orderCards } from '../../../../utils/cards';
+import { PlayerCard } from '../../../../interfaces';
 import { PlayingCard } from '../../components/PlayingCard';
 
 import './index.css';
