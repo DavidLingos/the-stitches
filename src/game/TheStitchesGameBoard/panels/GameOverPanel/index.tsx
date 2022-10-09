@@ -1,16 +1,9 @@
-import { Ctx, FilteredMetadata } from 'boardgame.io';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTheStitchesGame } from '../..';
 import { lobbyClient } from '../../../../api/lobbyClient';
-import { GameState } from '../../../../interfaces';
 import { TheStitchesGame } from '../../../TheStitchesGame';
 import { ResultsTable } from '../../components/ResultsTable';
 
 export const GameOverPanel = () => {
-  const {
-    board: { G, matchData },
-  } = useTheStitchesGame();
-
   const navigate = useNavigate();
   const params = useParams();
   const matchId = params.matchId ?? '';

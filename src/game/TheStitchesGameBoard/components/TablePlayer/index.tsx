@@ -1,5 +1,6 @@
 import { PlayerID } from 'boardgame.io';
 import { useTheStitchesGame } from '../..';
+import { PlayingCard } from '../PlayingCard';
 
 import './index.css';
 
@@ -9,7 +10,7 @@ interface TablePlayerProps {
 
 export const TablePlayer: React.FC<TablePlayerProps> = ({ playerId }) => {
   const {
-    board: { ctx, playerID: thisDevicePlayerId, matchData },
+    board: { G, ctx, playerID: thisDevicePlayerId, matchData },
   } = useTheStitchesGame();
 
   const getClassName = () => {
@@ -21,10 +22,30 @@ export const TablePlayer: React.FC<TablePlayerProps> = ({ playerId }) => {
     return `table-player table-player-${position}`;
   };
 
+  const playerCard = G.currentStitchCards[playerId];
+
   return (
     <div className={getClassName()}>
-      <img src="/static/img/user.svg" alt={'Player ' + matchData?.find((i) => i.id.toString() === playerId)?.name} />
-      <span className="table-player-name">{matchData?.find((i) => i.id.toString() === playerId)?.name}</span>
+      <img
+        className="table-player-avatar"
+        src="/static/img/user.svg"
+        alt={'Player ' + matchData?.find((i) => i.id.toString() === playerId)?.name}
+      />
+      {playerCard && <PlayingCard card={playerCard} />}
+      <span className="table-player-name">
+        {ctx.currentPlayer === playerId ? (
+          <strong>{matchData?.find((i) => i.id.toString() === playerId)?.name}</strong>
+        ) : (
+          matchData?.find((i) => i.id.toString() === playerId)?.name
+        )}
+      </span>
+      {playerId && (
+        <>
+          <strong>Skóre: </strong>
+          {G.points.reduce((n, item) => n + item[playerId], 0)}, ({G.currentRoundStitchesCount[playerId]}/
+          {G.expectedStitchesCount[playerId]})
+        </>
+      )}
     </div>
   );
 };

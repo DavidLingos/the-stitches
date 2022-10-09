@@ -3,10 +3,17 @@
   position: absolute;
 }
 
-.table-player img {
+.table-player .table-player-avatar {
   display: block;
   width: 100px;
   margin: 0 auto;
+}
+
+.table-player .playing-card {
+  position: absolute;
+  width: 40px;
+  top: 0;
+  right: 0;
 }
 
 .table-player .table-player-name {
@@ -14,27 +21,15 @@
 }
 
 .table-player-0 {
-  bottom: -135px;
+  bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(calc(100% + 10px));
 }
 
 .table-player-180 {
-  top: -145px;
+  top: 0;
   left: 50%;
-  transform: translateX(-50%);
-}
-
-.table-player-120 {
-  top: -135px;
-  left: 0%;
-  transform: translateX(-50%);
-}
-
-.table-player-240 {
-  top: -135px;
-  right: 0%;
-  transform: translateX(50%);
+  transform: translateX(-50%) translateY(calc(-100% - 25px));
 }
 
 .table-player-90 {
@@ -47,4 +42,28 @@
   bottom: 50%;
   right: 0;
   transform: translateX(125%) translateY(50%);
+}
+
+.table-player-72, .table-player-60 {
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%) translateY(50%);
+}
+
+.table-player-144, .table-player-120 {
+  top: 0;
+  left: 0;
+  transform: translateX(-100%) translateY(-50%);
+}
+
+.table-player-216, .table-player-240 {
+  top: 0;
+  right: 0;
+  transform: translateX(100%) translateY(-50%);
+}
+
+.table-player-288, .table-player-300 {
+  bottom: 0;
+  right: 0;
+  transform: translateX(100%) translateY(50%);
 }

@@ -7,7 +7,6 @@ import { GameOverPanel } from './panels/GameOverPanel';
 import { GameTable } from './panels/GameTablePanel';
 
 import './index.css';
-import { ResultsTable } from './components/ResultsTable';
 
 interface TheStitchesGameBoardContextValue {
   board: BoardProps<GameState>;
@@ -32,7 +31,7 @@ export const TheStitchesGameBoard: React.FC<BoardProps<GameState>> = (board) => 
           <div className="the-stitches">
             <GameTable />
             {playerID && <PlayerHandPanel />}
-            <ResultsTable />
+            {/* <ResultsTable /> */}
           </div>
         </>
       ) : (

@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useTheStitchesGame } from '../..';
 import { PlayingCard } from '../../components/PlayingCard';
 import { TablePlayer } from '../../components/TablePlayer';

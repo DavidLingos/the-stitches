@@ -1,4 +1,3 @@
-import { FilteredMetadata } from 'boardgame.io';
 import { useTheStitchesGame } from '../..';
 
 import './index.css';
@@ -49,7 +48,6 @@ export const ResultsTable = () => {
           </tfoot>
         </table>
       </div>
-      {!ctx.gameover && <h4>Hraje: {matchData?.find((i) => i.id?.toString() === ctx.currentPlayer)?.name}</h4>}
     </div>
   );
 };

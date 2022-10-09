@@ -48,7 +48,33 @@
 }
 
 .the-stitches-table-stitch-cards .playing-card {
-  margin: 0 5px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+
+.the-stitches-table-stitch-cards .playing-card:nth-child(1) {
+  transform: translateX(-50%);
+}
+
+.the-stitches-table-stitch-cards .playing-card:nth-child(2) {
+  transform: translateX(-50%) rotateZ(30deg);
+}
+
+.the-stitches-table-stitch-cards .playing-card:nth-child(3) {
+  transform: translateX(-50%) rotateZ(60deg);
+}
+
+.the-stitches-table-stitch-cards .playing-card:nth-child(4) {
+  transform: translateX(-50%) rotateZ(90deg);
+}
+
+.the-stitches-table-stitch-cards .playing-card:nth-child(5) {
+  transform: translateX(-50%) rotateZ(120deg);
+}
+
+.the-stitches-table-stitch-cards .playing-card:nth-child(6) {
+  transform: translateX(-50%) rotateZ(150deg);
 }
 
 .the-stitches-table-triumph-card {
