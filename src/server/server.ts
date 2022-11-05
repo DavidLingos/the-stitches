@@ -3,21 +3,21 @@ import { Server, Origins } from 'boardgame.io/server';
 import admin from 'firebase-admin';
 import serve from 'koa-static';
 import { TheStitchesGame } from '../game/TheStitchesGame';
-import googleCredentials from '../context/firebase/config/the-stitches-firebase-adminsdk-9jihn-3f16d5de3f.json' assert { type: 'json' };
 
-const serviceAccount = process.env.GOOGLE_CREDENTIALS ? JSON.parse(process.env.GOOGLE_CREDENTIALS) : googleCredentials;
+const serviceAccount = process.env.GOOGLE_CREDENTIALS ? JSON.parse(process.env.GOOGLE_CREDENTIALS) : undefined;
 
 export const server = Server({
   // Provide the definitions for your game(s).
   games: [TheStitchesGame],
   db: new Firestore({
     config: {
-      credential: admin.credential.cert({
-        clientEmail: serviceAccount.client_email,
-        privateKey: serviceAccount.private_key,
-        projectId: serviceAccount.project_id,
-      }),
-      projectId: serviceAccount.project_id,
+      credential: serviceAccount
+        ? admin.credential.cert({
+            clientEmail: serviceAccount.client_email,
+            privateKey: serviceAccount.private_key,
+            projectId: serviceAccount.project_id,
+          })
+        : admin.credential.applicationDefault(),
       storageBucket: 'the-stitches.appspot.com',
       databaseURL: 'https://the-stitches-default-rtdb.europe-west1.firebasedatabase.app/',
     },
