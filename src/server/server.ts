@@ -3,7 +3,7 @@ import { Server, Origins } from 'boardgame.io/server';
 import admin from 'firebase-admin';
 import serve from 'koa-static';
 import { TheStitchesGame } from '../game/TheStitchesGame';
-import googleCredentials from '../firebase/the-stitches-firebase-adminsdk-9jihn-3f16d5de3f.json' assert { type: 'json' };
+import googleCredentials from '../context/firebase/config/the-stitches-firebase-adminsdk-9jihn-3f16d5de3f.json' assert { type: 'json' };
 
 const serviceAccount = process.env.GOOGLE_CREDENTIALS ? JSON.parse(process.env.GOOGLE_CREDENTIALS) : googleCredentials;
 

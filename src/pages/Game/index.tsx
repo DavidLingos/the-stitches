@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useParams } from 'react-router-dom';
 import { lobbyClient } from '../../api/lobbyClient';
+import { useFirebase } from '../../context/firebase';
 import { TheStitchesGame } from '../../game/TheStitchesGame';
 import { GameClient } from './GameClient';
 import { JoinGameForm } from './JoinGameForm';
@@ -15,6 +17,9 @@ export const Game = () => {
   const [canConnectToGame, setCanConnectToGame] = useState<boolean>();
   const [playerId, setPlayerId] = useState<string>(sessionPlayer?.playerId);
   const [playerCredentials, setPlayerCredentials] = useState<string>(sessionPlayer?.playerCredentials);
+  const {
+    auth: { isAuthStateLoading, user },
+  } = useFirebase();
 
   const setPlayerCallback = useCallback(
     (playerId: string, playerCredentials: string) => {
@@ -29,12 +34,22 @@ export const Game = () => {
     lobbyClient.getMatch(TheStitchesGame.name ?? '', matchId).then((match) => setCanConnectToGame(match.players.some((i) => !i.name)));
   });
 
-  if (canConnectToGame === undefined) {
-    return <>Loading...</>;
+  useEffect(() => {
+    if (user) {
+      lobbyClient
+        .joinMatch(TheStitchesGame.name ?? '', matchId, {
+          playerName: user.displayName ?? '',
+        })
+        .then((response) => setPlayerCallback(response.playerID, response.playerCredentials));
+    }
+  }, [user, matchId, setPlayerCallback]);
+
+  if (canConnectToGame === undefined || isAuthStateLoading) {
+    return <>Načítám...</>;
   }
 
   if (!canConnectToGame && !playerId) {
-    return <>Game is full</>;
+    return <>Hra je plná</>;
   }
   return (
     <>

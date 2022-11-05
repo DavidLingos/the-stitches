@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { lobbyClient } from '../../../../api/lobbyClient';
 import { TheStitchesGame } from '../../../TheStitchesGame';
@@ -10,16 +12,13 @@ export const GameOverPanel = () => {
 
   const playAgain = async () => {
     const sessionPlayer = JSON.parse(sessionStorage.getItem(matchId) ?? '');
-    const matches = await lobbyClient.listMatches(TheStitchesGame.name ?? '', {
-      isGameover: true,
-    });
-    console.log(matches);
     const { nextMatchID } = await lobbyClient.playAgain(TheStitchesGame.name ?? '', matchId, {
       playerID: sessionPlayer?.playerId ?? '',
       credentials: sessionPlayer?.playerCredentials ?? '',
     });
     navigate(`/game/${nextMatchID}`);
   };
+
   return (
     <div className="centerize-container">
       <ResultsTable />
