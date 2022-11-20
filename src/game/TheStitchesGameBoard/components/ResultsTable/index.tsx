@@ -1,11 +1,15 @@
+import { FilteredMetadata } from 'boardgame.io';
 import { useTheStitchesGame } from '../..';
+import { GameState } from '../../../../interfaces';
 
 import './index.css';
 
-export const ResultsTable = () => {
-  const {
-    board: { G, matchData, ctx },
-  } = useTheStitchesGame();
+export interface ResultsTableProps {
+  G: GameState;
+  matchData?: FilteredMetadata;
+}
+
+export const ResultsTable: React.FC<ResultsTableProps> = ({ G, matchData }) => {
   return (
     <div className="result-list">
       <h2>Skóre</h2>
@@ -26,14 +30,7 @@ export const ResultsTable = () => {
               <tr>
                 <th scope="row">{G.numberOfRounds - idx}</th>
                 {matchData?.map((i) => (
-                  <td key={i.id}>
-                    {G.points.length > idx && G.points[idx][i.id]}
-                    {G.currentRound - 1 === idx && !ctx.gameover && (
-                      <>
-                        ({G.currentRoundStitchesCount[i.id]}/{G.expectedStitchesCount[i.id]})
-                      </>
-                    )}
-                  </td>
+                  <td key={i.id}>{G.points.length > idx && G.points[idx][i.id]}</td>
                 ))}
               </tr>
             ))}

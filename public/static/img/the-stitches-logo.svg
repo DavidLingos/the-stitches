@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="157.145 0.001 487.905 487.905" width="487.905" height="487.905" xmlns="http://www.w3.org/2000/svg">
+  <g id="g8" transform="matrix(1.333333, 0, 0, -1.333333, 0, 693.693359)">
+    <g id="g10" transform="scale(0.1)">
+      <path d="M 3008.23,1543.4 1178.59,3373.05 3008.23,5202.69 4837.88,3373.05 3008.23,1543.4" style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path12"/>
+      <path d="m 3008.1,5034.18 760.42,-760.41 -760.42,-760.3 -760.42,760.3 760.42,760.41 v 0" style="fill:#292627;fill-opacity:1;fill-rule:evenodd;stroke:none" id="path14"/>
+      <path d="m 3008.1,5034.18 760.42,-760.41 -760.42,-760.3 -760.42,760.3 760.42,760.41 z" style="fill:none;stroke:#ffffff;stroke-width:50;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" id="path16"/>
+      <path d="m 1346.99,3373.04 760.42,-760.44 760.3,760.44 -760.3,760.45 -760.42,-760.45 v 0" style="fill:#ed1c24;fill-opacity:1;fill-rule:evenodd;stroke:none" id="path18"/>
+      <path d="m 1346.99,3373.04 760.42,-760.44 760.3,760.44 -760.3,760.45 -760.42,-760.45 z" style="fill:none;stroke:#ffffff;stroke-width:50;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" id="path20"/>
+      <path d="m 2107.2,2986.72 c 132.97,180.42 289.41,242.27 349.39,435.01 57.55,184.02 -156.35,323.71 -349.39,143.29 -192.8,180.42 -406.64,40.73 -349.15,-143.29 60.23,-192.74 216.45,-254.59 349.15,-435.01 v 0" style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none" id="path22"/>
+      <path d="m 2107.2,2986.72 c 132.97,180.42 289.41,242.27 349.39,435.01 57.55,184.02 -156.35,323.71 -349.39,143.29 -192.8,180.42 -406.64,40.73 -349.15,-143.29 60.23,-192.74 216.45,-254.59 349.15,-435.01 z" style="fill:none;stroke:#ed1c24;stroke-width:50;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" id="path24"/>
+      <path d="m 4669.24,3373.08 -760.45,760.41 -760.27,-760.41 760.27,-760.42 760.45,760.42 v 0" style="fill:#ed1c24;fill-opacity:1;fill-rule:evenodd;stroke:none" id="path26"/>
+      <path d="m 4669.24,3373.08 -760.45,760.41 -760.27,-760.41 760.27,-760.42 760.45,760.42 z" style="fill:none;stroke:#ffffff;stroke-width:50;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" id="path28"/>
+      <path d="m 3908.79,3736.45 363.49,-363.19 -363.49,-363.62 -363.5,363.62 363.5,363.19 v 0" style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none" id="path30"/>
+      <path d="m 3908.79,3736.45 363.49,-363.19 -363.49,-363.62 -363.5,363.62 363.5,363.19 z" style="fill:none;stroke:#ed1c24;stroke-width:50;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" id="path32"/>
+      <path d="m 3008.13,1711.94 -760.45,760.45 760.45,760.26 760.45,-760.26 -760.45,-760.45 v 0" style="fill:#292627;fill-opacity:1;fill-rule:evenodd;stroke:none" id="path34"/>
+      <path d="m 3008.13,1711.94 -760.45,760.45 760.45,760.26 760.45,-760.26 -760.45,-760.45 z" style="fill:none;stroke:#ffffff;stroke-width:50;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" id="path36"/>
+      <path d="m 2888.48,2124.6 c 51.14,73.39 86.47,146.54 106,220.2 -27.16,-60.52 -87.65,-102.7 -158.32,-102.7 -95.58,0 -173.33,77.42 -173.33,172.97 0,95.95 77.75,173.15 173.33,173.15 2.94,0 5.81,0 9.09,-0.03 -6.61,18.32 -10.21,38.27 -10.21,58.89 0,95.34 77.54,172.91 173.21,172.91 95.44,0 172.91,-77.57 172.91,-172.91 0,-20.68 -3.55,-40.72 -10.14,-58.89 2.96,0 6.06,0.03 9.11,0.03 95.55,0 173.36,-77.2 173.36,-173.18 0,-95.52 -77.81,-172.94 -173.36,-172.94 -70.46,0 -131.28,42.18 -158.29,102.7 19.45,-73.66 54.75,-147.05 105.7,-220.2 -79.48,0 -159.16,0 -239.06,0 v 0" style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none" id="path38"/>
+      <path d="m 3008.35,4713.4 c 132.3,-180.32 288.74,-242.27 349.14,-434.79 55.05,-176.63 -139.21,-311.91 -325.29,-164.31 20.59,-61.77 52.59,-123.65 95.38,-185.36 -79.49,0 -159.41,0 -239.1,0 42.99,61.65 74.75,123.5 95.55,185.36 -185.99,-147.6 -379.87,-12.32 -325.13,164.31 59.94,192.52 216.41,254.47 349.45,434.79 v 0" style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none" id="path40"/>
+    </g>
+  </g>
+</svg>

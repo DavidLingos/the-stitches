@@ -1,0 +1,8 @@
+.base-layout {
+  padding-left: 200px;
+}
+
+.base-sidebar {
+  left: 0;
+  position: fixed;
+}

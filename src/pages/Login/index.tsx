@@ -12,25 +12,13 @@ interface LoginForm {
 
 export const Login = () => {
   const {
-    auth: { auth, logInWithEmailAndPassword, signInWithGoogle },
+    auth: { logInWithEmailAndPassword, signInWithGoogle },
   } = useFirebase();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginForm>();
-  const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user) {
-      navigate('/home');
-    }
-  }, [user, loading, navigate]);
-
-  if (loading) {
-    return <>Načítám...</>;
-  }
 
   return (
     <div className="login">

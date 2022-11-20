@@ -24,7 +24,7 @@ const endPlayersTurn = (G: GameState, ctx: Ctx) => {
 
 const endPhaseIfNoCardsRemaining = (G: GameState, ctx: Ctx) => {
   if (Object.keys(G.playerHands).every((i) => !G.playerHands[i].length)) {
-    ctx.events?.setPhase('reportExpectedStitches');
+    setTimeout(() => ctx.events?.setPhase('reportExpectedStitches'), 5000);
   }
 };
 

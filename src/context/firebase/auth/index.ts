@@ -10,7 +10,7 @@ import {
   signOut,
   User,
 } from 'firebase/auth';
-import { addDoc, collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { addDoc, collection, Firestore, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 export interface FirebaseAuth {
@@ -24,9 +24,8 @@ export interface FirebaseAuth {
   logout: () => void;
 }
 
-export const useFirebaseAuth = (app: FirebaseApp): FirebaseAuth => {
+export const useFirebaseAuth = (app: FirebaseApp, db: Firestore): FirebaseAuth => {
   const auth = getAuth(app);
-  const db = getFirestore(app);
   const googleProvider = new GoogleAuthProvider();
   const [user, isAuthStateLoading] = useAuthState(auth);
 

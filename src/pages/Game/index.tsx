@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom';
 import { lobbyClient } from '../../api/lobbyClient';
 import { useFirebase } from '../../context/firebase';
 import { TheStitchesGame } from '../../game/TheStitchesGame';
+import { GameOverPanel } from '../../game/TheStitchesGameBoard/panels/GameOverPanel';
 import { GameClient } from './GameClient';
-import { JoinGameForm } from './JoinGameForm';
+import { GameResult } from './GameResult';
 
 export const Game = () => {
   const params = useParams();
@@ -15,6 +16,7 @@ export const Game = () => {
     return sessionPlayerString ? JSON.parse(sessionPlayerString) : undefined;
   }, [matchId]);
   const [canConnectToGame, setCanConnectToGame] = useState<boolean>();
+  const [isGameOver, setIsGameOver] = useState<boolean>();
   const [playerId, setPlayerId] = useState<string>(sessionPlayer?.playerId);
   const [playerCredentials, setPlayerCredentials] = useState<string>(sessionPlayer?.playerCredentials);
   const {
@@ -31,18 +33,28 @@ export const Game = () => {
   );
 
   useEffect(() => {
-    lobbyClient.getMatch(TheStitchesGame.name ?? '', matchId).then((match) => setCanConnectToGame(match.players.some((i) => !i.name)));
-  });
+    lobbyClient.getMatch(TheStitchesGame.name ?? '', matchId).then((match) => {
+      setCanConnectToGame(match.players.some((i) => !i.name));
+      setIsGameOver(match.gameover);
+    });
+  }, [matchId]);
 
   useEffect(() => {
     if (user) {
       lobbyClient
         .joinMatch(TheStitchesGame.name ?? '', matchId, {
           playerName: user.displayName ?? '',
+          data: {
+            userUid: user.uid,
+          },
         })
         .then((response) => setPlayerCallback(response.playerID, response.playerCredentials));
     }
   }, [user, matchId, setPlayerCallback]);
+
+  if (isGameOver) {
+    return <GameResult />;
+  }
 
   if (canConnectToGame === undefined || isAuthStateLoading) {
     return <>Načítám...</>;
@@ -51,13 +63,5 @@ export const Game = () => {
   if (!canConnectToGame && !playerId) {
     return <>Hra je plná</>;
   }
-  return (
-    <>
-      {playerId && playerCredentials ? (
-        <GameClient matchID={matchId ?? ''} playerID={playerId} credentials={playerCredentials} />
-      ) : (
-        <JoinGameForm matchId={matchId ?? ''} setPlayer={setPlayerCallback} />
-      )}
-    </>
-  );
+  return <>{playerId && playerCredentials && <GameClient matchID={matchId ?? ''} playerID={playerId} credentials={playerCredentials} />}</>;
 };

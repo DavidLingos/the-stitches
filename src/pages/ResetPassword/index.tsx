@@ -12,21 +12,13 @@ interface ResetForm {
 
 export const ResetPassword = () => {
   const {
-    auth: { auth, sendPasswordReset },
+    auth: { sendPasswordReset },
   } = useFirebase();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ResetForm>();
-  const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user) {
-      navigate('/home');
-    }
-  }, [user, loading, navigate]);
 
   return (
     <div className="reset">

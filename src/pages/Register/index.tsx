@@ -13,20 +13,13 @@ interface RegisterForm {
 
 export const Register = () => {
   const {
-    auth: { auth, registerWithEmailAndPassword, signInWithGoogle },
+    auth: { registerWithEmailAndPassword, signInWithGoogle },
   } = useFirebase();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterForm>();
-  const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (loading) return;
-    if (user) navigate('/home');
-  }, [user, loading, navigate]);
 
   return (
     <div className="register">

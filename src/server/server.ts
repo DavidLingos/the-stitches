@@ -3,13 +3,14 @@ import { Server, Origins } from 'boardgame.io/server';
 import admin from 'firebase-admin';
 import serve from 'koa-static';
 import { TheStitchesGame } from '../game/TheStitchesGame';
+import { CustomFirestore } from './storage';
 
 const serviceAccount = process.env.GOOGLE_CREDENTIALS ? JSON.parse(process.env.GOOGLE_CREDENTIALS) : undefined;
 
 export const server = Server({
   // Provide the definitions for your game(s).
   games: [TheStitchesGame],
-  db: new Firestore({
+  db: new CustomFirestore({
     config: {
       credential: serviceAccount
         ? admin.credential.cert({
