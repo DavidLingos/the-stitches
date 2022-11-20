@@ -1,5 +1,5 @@
 import { Ctx, PhaseConfig, PlayerID } from 'boardgame.io';
-import { GameState } from '../../../../interfaces';
+import { Gameover, GameState } from '../../../../interfaces';
 import { getPlayerWithMaxReportedStitches } from '../../../../utils/game';
 import moves from './moves';
 
@@ -21,8 +21,15 @@ const evaluateCurrentRound = (G: GameState, ctx: Ctx) => {
   });
   G.points.push(currentRoundPoints);
   G.stitchStartPlayer = null;
-  if (G.currentRound !== G.numberOfRounds) {
-    ctx.events?.endGame(true);
+  if (G.currentRound === G.numberOfRounds) {
+    const playerPoints = Object.fromEntries(Object.keys(ctx.playOrder).map((i) => [i, G.points.reduce((n, item) => n + item[i], 0)]));
+    const playerResults = Object.keys(playerPoints).sort((a, b) => (playerPoints[a] < playerPoints[b] ? 1 : -1));
+    const gameover: Gameover = {
+      playerPoints,
+      playerResults,
+      matchDate: new Date(),
+    };
+    ctx.events?.endGame(gameover);
   } else {
     G.currentRound++;
   }

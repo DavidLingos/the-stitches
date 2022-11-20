@@ -2,10 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { useFirebase } from '../../context/firebase';
-
-interface StatisticsDocument {
-  matchId: string;
-}
+import { StatisticsDocument } from '../../interfaces';
 
 export const Statistics = () => {
   const { db, auth } = useFirebase();
@@ -31,12 +28,14 @@ export const Statistics = () => {
   return (
     <>
       <h1>Statistiky</h1>
-      {matches.data?.map((i) => (
-        <Link to={`/game/${i.matchId}`} className="d-block">
-          {i.matchId}
-        </Link>
-      ))}
-      ;
+      {matches.data
+        ?.sort((a, b) => (a.matchDate.seconds < b.matchDate.seconds ? 1 : -1))
+        .map((i) => (
+          <Link to={`/game/${i.matchId}`} className="d-block">
+            {i.matchId} ({i.matchDate.toDate().toLocaleDateString()}), Umístění: {i.matchResult}, Počet hráču: {i.numPlayers}, Počet bodů:{' '}
+            {i.matchPoints}
+          </Link>
+        ))}
     </>
   );
 };

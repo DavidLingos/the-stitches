@@ -36,7 +36,7 @@ export const Game = () => {
   useEffect(() => {
     lobbyClient.getMatch(TheStitchesGame.name ?? '', matchId).then((match) => {
       setCanConnectToGame(match.players.some((i) => !i.name));
-      setIsGameOver(match.gameover);
+      setIsGameOver(match.gameover !== undefined);
     });
   }, [matchId]);
 

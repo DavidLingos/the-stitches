@@ -12,7 +12,7 @@ export const ReportExpectedStitchesPanel = () => {
   const {
     board: { G, ctx, moves },
   } = useTheStitchesGame();
-  const [expectedStitches, setExpectedStitches] = useState<number>();
+  const [expectedStitches, setExpectedStitches] = useState<number>(0);
   const onConfirm = () => {
     if (expectedStitches === undefined) {
       alert('Zadej počet štychů');
