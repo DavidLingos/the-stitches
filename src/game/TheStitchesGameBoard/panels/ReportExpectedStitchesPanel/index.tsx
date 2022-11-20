@@ -22,6 +22,11 @@ export const ReportExpectedStitchesPanel = () => {
       alert('Nesmíš zadat víc štychů než je karet');
       return;
     }
+
+    if (expectedStitches < 0) {
+      alert('Nesmíš zadat záporný počet štychů');
+      return;
+    }
     if (
       Object.keys(G.expectedStitchesCount).filter((x) => G.expectedStitchesCount[x] !== null).length === ctx.numPlayers - 1 &&
       getExpectedStitchesSum(G.expectedStitchesCount) + expectedStitches === G.numberOfRounds - G.currentRound + 1
@@ -38,7 +43,7 @@ export const ReportExpectedStitchesPanel = () => {
   return (
     <div className="report-expected-stitches">
       Zadej počet štychů
-      <input type="number" onChange={(e) => setExpectedStitches(Number(e.target.value))} />
+      <input type="number" onChange={(e) => setExpectedStitches(Number(e.target.value))} min="0" defaultValue="0" />
       <button onClick={onConfirm}>Potvrdit</button>
     </div>
   );
