@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useParams } from 'react-router-dom';
@@ -43,7 +44,7 @@ export const Game = () => {
     if (user) {
       lobbyClient
         .joinMatch(TheStitchesGame.name ?? '', matchId, {
-          playerName: user.displayName ?? '',
+          playerName: user.displayName ?? user.email ?? user.uid,
           data: {
             userUid: user.uid,
           },
