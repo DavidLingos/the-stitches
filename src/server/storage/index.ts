@@ -16,9 +16,12 @@ export class CustomFirestore extends Firestore {
           const user = await this.db.collection('users').where('uid', '==', player.data.userUid).get();
           if (user.size) {
             const userStatistics = this.db.collection(`users/${user.docs[0].id}/statistics`);
-            await userStatistics.add({
-              matchId: matchId,
-            });
+            const matchUserStatistics = await userStatistics.where('matchId', '==', matchId).get();
+            if (matchUserStatistics.empty) {
+              await userStatistics.add({
+                matchId: matchId,
+              });
+            }
           }
         }
       }
