@@ -39,7 +39,6 @@ export class CustomFirestore extends Firestore {
   };
   async setMetadata(matchID: string, metadata: Server.MatchData): Promise<void> {
     await super.setMetadata(matchID, metadata);
-    await this.saveGameStatistics(matchID, metadata.players);
     if (metadata.gameover) {
       await this.saveGameStatistics(matchID, metadata.players);
     }
