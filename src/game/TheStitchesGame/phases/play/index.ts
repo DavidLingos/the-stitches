@@ -21,7 +21,7 @@ const evaluateCurrentRound = (G: GameState, ctx: Ctx) => {
   });
   G.points.push(currentRoundPoints);
   G.stitchStartPlayer = null;
-  if (G.currentRound !== G.numberOfRounds) {
+  if (G.currentRound === G.numberOfRounds) {
     ctx.events?.endGame(true);
   } else {
     G.currentRound++;
