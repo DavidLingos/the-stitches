@@ -31,10 +31,13 @@ export const Statistics = () => {
       {matches.data
         ?.sort((a, b) => (a.matchDate.seconds < b.matchDate.seconds ? 1 : -1))
         .map((i) => (
-          <Link to={`/game/${i.matchId}`} className="d-block">
-            {i.matchId} ({i.matchDate.toDate().toLocaleDateString()}), Umístění: {i.matchResult}, Počet hráču: {i.numPlayers}, Počet bodů:{' '}
+          <p>
+            Datum: ({i.matchDate.toDate().toLocaleDateString()}), Umístění: {i.matchResult}., Počet hráču: {i.numPlayers}, Počet bodů:{' '}
             {i.matchPoints}
-          </Link>
+            <Link to={`/game/${i.matchId}`} className="ms-2">
+              Zobrazit detail
+            </Link>
+          </p>
         ))}
     </>
   );

@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
   User,
 } from 'firebase/auth';
 import { addDoc, collection, Firestore, getDocs, getFirestore, query, where } from 'firebase/firestore';
@@ -50,6 +51,7 @@ export const useFirebaseAuth = (app: FirebaseApp, db: Firestore): FirebaseAuth =
 
   const registerWithEmailAndPassword = async (name: string, email: string, password: string) => {
     const res = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(res.user, { displayName: name });
     const user = res.user;
     await addDoc(collection(db, 'users'), {
       uid: user.uid,

@@ -6,3 +6,7 @@
   left: 0;
   position: fixed;
 }
+
+.base-container {
+  height: 100vh;
+}
