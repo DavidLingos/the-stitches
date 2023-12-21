@@ -30,7 +30,7 @@ export const server = Server({
   ],
 });
 
-// Build path relative to the server.js file
+// Build path relative to the server.js fi
 const frontEndAppBuildPath = './build';
 server.app.use(serve(frontEndAppBuildPath));
 
